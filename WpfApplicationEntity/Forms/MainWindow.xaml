@@ -1,0 +1,167 @@
+﻿<Window x:Class="WpfApplicationEntity.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Entity Framework" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid>
+        <TabControl Margin="10,0,-10,0">
+            <TabItem x:Name="TicketsTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Билеты</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addTicketButton"  Content="Добавить" Margin="3" Padding="3" Click="addTicketButton_Click"></Button>
+                            <Button x:Name="editTicketButton"  Content="Удалить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteTicketButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="TicketsGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding ID_Ticket}" Header="ID_Ticket" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Cost}" Header="Стоимость"/>
+                                <DataGridTextColumn Binding="{Binding Amount}" Header="Количество"/>
+                                <DataGridTextColumn Binding="{Binding Status}" Header="Статус"/>
+                                <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="SheduleTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">График МК</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addSheduleButton"  Content="Добавить" Margin="3" Padding="3" Click="addSheduleButton_Click"></Button>
+                            <Button x:Name="editSheduleButton"  Content="Удалить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteSheduleButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="SheduleGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding ID_MK_schedule}" Header="ID_MK_schedule" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Date}" Header="Дата"/>
+                                <DataGridTextColumn Binding="{Binding Price}" Header="Цена"/>
+                                <DataGridTextColumn Binding="{Binding Start_time}" Header="Время начала"/>
+                                <DataGridTextColumn Binding="{Binding End_time}" Header="Время конца"/>
+                                <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="ServicesTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3"><Run Text="Другие услуги"/></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addServiceButton"  Content="Добавить" Margin="3" Padding="3" Click="addServiceButton_Click"></Button>
+                            <Button x:Name="editServiceButton"  Content="Удалить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteServiceButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="ServiceGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding ID_other_services}" Header="ID_other_services" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="Название"/>
+                                <DataGridTextColumn Binding="{Binding The_cost}" Header="Стоимость"/>
+                                <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
+                                
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Client">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Клиент</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addClientButton"  Content="Добавить" Margin="3" Padding="3" Click="addClientButton_Click"></Button>
+                            <Button x:Name="deleteClientButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteClientButton_Click"></Button>
+                            <Button x:Name="editClientButton"  Content="Изменить" Margin="3" Padding="3" Click="editClientButton_Click"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="ClientGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
+                                <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество"/>
+                                <DataGridTextColumn Binding="{Binding Adress}" Header="Адрес"/>
+                                <DataGridTextColumn Binding="{Binding Number}" Header="Номер телефона"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Skates_hire" >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Коньки на прокат</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addSkatesButton"  Content="Добавить" Margin="3" Padding="3" Click="addSkatesButton_Click"></Button>
+                            <Button x:Name="deleteSkatesButton"  Content="Удалить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="editSkatesButton"  Content="Изменить" Margin="3" Padding="3" Click="editSkatesButton_Click"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="SkatesGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding ID_skates_hire}" Header="Id" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Size}" Header="Размер"/>
+                                <DataGridTextColumn Binding="{Binding Time}" Header="Время"/>
+                                <DataGridTextColumn Binding="{Binding Type}" Header="Тип"/>
+                                <DataGridTextColumn Binding="{Binding Count}" Header="Количество"/>
+                                <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Employees">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Сотрудники</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button x:Name="addEmployeesButton"  Content="Добавить" Margin="3" Padding="3" Click="addEmployeesButton_Click"></Button>
+                            <Button x:Name="deleteEmployeesButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteEmployeesButton_Click"></Button>
+                            <Button x:Name="editEmployeesButton"  Content="Изменить" Margin="3" Padding="3" Click="editEmployeesButton_Click"></Button>
+                        </WrapPanel>
+                        <DataGrid AutoGenerateColumns="False" x:Name="EmployeesGrid">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding ID_employees}" Header="ID_employees" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
+                                <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
+                                <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество"/>
+                                <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"/>
+                                <DataGridTextColumn Binding="{Binding Telephone}" Header="Номер телефона"/>
+                                <DataGridTextColumn Binding="{Binding Position}" Header="Должность"/>
+                                <DataGridTextColumn Binding="{Binding Date}" Header="Дата рождения"/>
+                                <DataGridTextColumn Binding="{Binding Login}" Header="Логин"/>
+                                <DataGridTextColumn Binding="{Binding Password}" Header="Пароль"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

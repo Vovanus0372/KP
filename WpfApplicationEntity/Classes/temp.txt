@@ -1,0 +1,59 @@
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+
+namespace WFAEntity.API
+{
+    class DatabaseRequest
+    {
+        System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent> tmp;
+        public struct newStudent
+        {
+            public int nId { get; set; }
+            public string nName { get; set; }
+            public string nSurname { get; set; }
+            public string nGroup { get; set; }
+            public newStudent(int nId, string nName, string nSurname, string nGroup)
+            {
+                this.nId = nId;
+                this.nName = nName;
+                this.nSurname = nSurname;
+                this.nGroup = nGroup;
+            }
+        }
+        public DatabaseRequest()
+        {
+        }
+        /*
+         * Серьезность	Код	Описание	Проект	Файл	Строка	Состояние подавления
+Ошибка	CS0266	Не удается неявно преобразовать тип 
+"System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent>" в
+"System.Collections.Generic.List<WFAEntity.API.DatabaseRequest.newStudent>". Существует явное преобразование (возможно, пропущено приведение типов).	WFAEntity	F:\C#\WFAEntity_v2\WFAEntity\API\DatabaseRequest.cs	33	Активные
+
+         */
+        public System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent> GetStudents(MyDBContext objectMyDBContext)
+        {
+            //System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent> tmp;// = new System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent>();
+            //List<System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent>> tmp2 = new List<System.Linq.IQueryable<WFAEntity.API.DatabaseRequest.newStudent>>();
+            //System.Data.Entity.Infrastructure.DbQuery<newStudent>)tmp;//=new System.Data.Entity.Infrastructure.DbQuery<WFAEntity.API.DatabaseRequest.newStudent>);
+            //using (MyDBContext objectMyDBContext = new MyDBContext())
+            {
+                //newStudent ob=new newStudent();
+                objectMyDBContext.Students.Load();
+                var tmp = from s in objectMyDBContext.Students
+                      join g in objectMyDBContext.Groups on s.Id equals g.Id
+                      select new newStudent(s.Id, s.Name, s.Surname, g.Name);
+                /*  {-		
+                 *  Sql	'((System.Data.Entity.Infrastructure.DbQuery<WFAEntity.API.DatabaseRequest.newStudent>)tmp).Sql' threw an exception of type 'System.NotSupportedException'	string {System.NotSupportedException}
+
+                      //newStudent(s.Id, s.Name, s.Surname, g.Name)
+                           ob.nId = s.Id,
+                           /*nName = s.Name,
+                           nSurname = s.Surname,
+                           nGroup = g.Name
+                       };*/
+            }
+            return tmp;
+        }
+    }
+}
