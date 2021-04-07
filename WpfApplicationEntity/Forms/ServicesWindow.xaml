@@ -24,7 +24,9 @@
         <Label Content="Стоимость" Grid.Column="0" Grid.Row="1" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditThe_cost" Grid.Column="1" Grid.Row="1" Padding="0" Margin="3" Text=""/>
         <Label Content="Сотрудник" Grid.Column="0" Grid.Row="2" Padding="0" Margin="3"/>
-        <ComboBox x:Name="ComboBoxAddEditName" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="2" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditName" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="2" Padding="0" Margin="3"
+                   DisplayMemberPath="Name"
+                  SelectedValuePath="ID_Employees"/>
         <Button x:Name="ButtonAddEditServices"  Grid.Column="0" Grid.Row="4" Content="Добавить" Grid.ColumnSpan="2" Padding="0" Margin="1" Click="ButtonAddEditServices_Click"/>
         
     </Grid>

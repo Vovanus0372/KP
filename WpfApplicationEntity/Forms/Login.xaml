@@ -1,0 +1,13 @@
+﻿<Window x:Class="WpfApplicationEntity.Forms.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="219" Width="221">
+    <Grid Margin="0,0,2,1">
+        <Label Content="Login" HorizontalAlignment="Left" Margin="44,17,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Log" HorizontalAlignment="Left" Height="23" Margin="49,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="44,67,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Pas" HorizontalAlignment="Left" Height="23" Margin="49,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Вход" HorizontalAlignment="Left" Margin="49,137,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+
+    </Grid>
+</Window>

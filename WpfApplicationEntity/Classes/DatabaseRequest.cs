@@ -13,7 +13,7 @@ namespace WFAEntity.API
             public string Count { get; set; }
             public string Type { get; set; }
             public string Employees { get; set; }
-            public NewSkates_hire(int ID, string Time, string Size, string Count, string Type, string Employees)
+            public NewSkates_hire(int ID_skates_hire, string Time, string Size, string Count, string Type, string Employees)
             {
                 this.ID_skates_hire = ID_skates_hire;
                 this.Size = Size;
@@ -23,6 +23,7 @@ namespace WFAEntity.API
                 this.Employees = Employees;
             }
         }
+       
         public class NewOther_services
         {
             public int ID_other_services { get; set; }
@@ -35,6 +36,28 @@ namespace WFAEntity.API
                 this.Name = Name;
                 this.The_cost = The_cost;
                 this.Employees = Employees;
+            }
+        }
+        public class NewTicket
+        {
+            public int ID_Ticket { get; set; }
+            public string Cost { get; set; }
+            public string Amount { get; set; }
+            public string Status { get; set; }
+            public string Client { get; set; }
+            public string MK_schedule { get; set; }
+            public string Other_services { get; set; }
+            public string Skates_hire { get; set; }
+            public NewTicket(int ID_Ticket, string Cost, string Amount, string Status, string Client, string MK_schedule, string Other_services, string Skates_hire)
+            {
+                this.ID_Ticket = ID_Ticket;
+                this.Cost = Cost;
+                this.Amount = Amount;
+                this.Status = Status;
+                this.Client = Client;
+                this.MK_schedule = MK_schedule;
+                this.Other_services = Other_services;
+                this.Skates_hire = Skates_hire;
             }
         }
         public class NewMK_schedule
@@ -100,6 +123,12 @@ namespace WFAEntity.API
         }
         #endregion
         #region Коньки на прокат
+        public static Skates_hire GetSkatesById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempSkates in objectMyDBContext.Skates_hire.ToList<Skates_hire>()
+                    where tempSkates.ID_skates_hire == ID
+                    select tempSkates).First();
+        }
         public static IEnumerable<Skates_hire> GetSkates(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.Skates_hire.ToList();
@@ -140,7 +169,69 @@ namespace WFAEntity.API
         {
             return objectMyDBContext.Ticket.ToList();
         }
+
+        public static IEnumerable<NewTicket> GetClientWithTicket(MyDBContext objectMyDBContext)
+         {
+             return (
+                    from tmpTicket in objectMyDBContext.Ticket.ToList<Ticket>()
+                    from tmpClient in objectMyDBContext.Client.ToList<Client>()
+                    from tmpShedule in objectMyDBContext.MK_schedule.ToList<MK_schedule>()
+                    from tmpServices in objectMyDBContext.Other_services.ToList<Other_services>()
+                    from tmpSkates in objectMyDBContext.Skates_hire.ToList<Skates_hire>()
+                    where tmpSkates.ID_skates_hire == tmpSkates.ID_skates_hire
+                    where tmpServices.ID_other_services == tmpServices.ID_other_services
+                    where tmpShedule.ID_MK_schedule == tmpShedule.ID_MK_schedule
+                    where tmpTicket.ID_Client == tmpClient.ID_Client
+                    select (
+                    new NewTicket(tmpTicket.ID_Ticket, tmpTicket.Cost, tmpTicket.Amount, tmpTicket.Status, tmpClient.Name, tmpShedule.Date, tmpServices.Name, tmpSkates.Size)
+                    )
+                           ).ToList();
+         }
       
+        #endregion
+        #region Default
+       public static void Fill()
+        {
+            using (WFAEntity.API.MyDBContext objectMyDBContext = new WFAEntity.API.MyDBContext())
+            {
+                if (objectMyDBContext.Database.Exists() == false)
+                {
+                    Employees employe1 = new Employees("Владимир", "Савин", "Алексеевич", "Пушкина, 4", "02.15.2003", "Администратор", "KING", "1111", "29541514");
+                    objectMyDBContext.Employees.Add(employe1);
+                    objectMyDBContext.SaveChanges();
+                    Employees employe2 = new Employees("Мишуто", "Максим", "Витальевич", "Блохина, 2", "06.04.2004", "Посетитель", "Maks", "1234", "1445124785");
+                    objectMyDBContext.Employees.Add(employe2);
+                    objectMyDBContext.SaveChanges();
+                    Employees employe3 = new Employees("Абрамович", "Даниил", "Владимирович", "Пушкина, 2", "03.09.2003", "Кассир", "ABR", "1234", "1445124785");
+                    objectMyDBContext.Employees.Add(employe3);
+                    objectMyDBContext.SaveChanges();
+                    Skates_hire skatesHire1 = new Skates_hire("1", "10:00", "1", "м", employe1);
+                    objectMyDBContext.Skates_hire.Add(skatesHire1);
+                    objectMyDBContext.SaveChanges();
+                    Skates_hire skatesHire2 = new Skates_hire("2", "20:00", "2", "м", employe2);
+                    objectMyDBContext.Skates_hire.Add(skatesHire2);
+                    objectMyDBContext.SaveChanges();
+                    Skates_hire skatesHire3 = new Skates_hire("3", "11:00", "3", "м", employe1);
+                    objectMyDBContext.Skates_hire.Add(skatesHire3);
+                    objectMyDBContext.SaveChanges();
+                    Skates_hire skatesHire4 = new Skates_hire("4", "12:00", "4", "м", employe2);
+                    objectMyDBContext.Skates_hire.Add(skatesHire4);
+                    objectMyDBContext.SaveChanges();
+                    Client client1 = new Client("Игорев", "Игорь", "Игоревич", "Блохина 46", "294512486");
+                    objectMyDBContext.Client.Add(client1);
+                    objectMyDBContext.SaveChanges();
+                    Other_services service1 = new Other_services("Коньки на прокат", "10", employe2);
+                    objectMyDBContext.Other_services.Add(service1);
+                    objectMyDBContext.SaveChanges();
+                    MK_schedule MK_schedule1 = new MK_schedule("16.02.2020", "200", "17:00", "18:00", employe2, service1);
+                    objectMyDBContext.MK_schedule.Add(MK_schedule1);
+                    objectMyDBContext.SaveChanges();
+                    Ticket ticket1 = new Ticket("5", "200", "Есть", client1, MK_schedule1, service1, skatesHire2);
+                    objectMyDBContext.Ticket.Add(ticket1);
+                    objectMyDBContext.SaveChanges();
+                }
+            }
+        }
         #endregion
     }
 }

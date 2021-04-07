@@ -48,19 +48,6 @@ namespace WpfApplicationEntity.Forms
             this.p1 = p1;
             this.p2 = p2;
         }
-        //public Employees GetNeedEmployees(List<Employees> List)
-        //{
-        //    string[] Names = ComboBoxAddEditEmployess.Text.Split(' ');
-        //    for (int i = 0; i < List.Count; i++)
-        //    {
-        //        if (List[i].Name == Names[0])
-        //        {
-        //            return List[i];
-        //        }
-        //    }
-        //    return List[0];
-        //}
-
         private void ButtonAddEditSkates_Click(object sender, RoutedEventArgs e)
         {
             if (!IsEdit)
@@ -77,14 +64,6 @@ namespace WpfApplicationEntity.Forms
                         textBlockAddEditType.Text,
                          (WFAEntity.API.Employees)ComboBoxAddEditEmployess.SelectedItem
                             );
-                        /*objectSkates.ID_skates_hire = objectMyDBContext.Skates_hire.Count();
-                        objectSkates.ID_skates_hire++;
-                        objectSkates.Size = textBlockAddEditSize.Text;
-                        objectSkates.Time = textBlockAddEditTime.Text;
-                        objectSkates.Type = textBlockAddEditType.Text;
-                        objectSkates.Count = textBlockAddEditCount.Text;
-                        objectSkates.ID_employees=
-                         (WFAEntity.API.Employees)comboBoxAddEditEmployees.SelectedItem;*/
                         try
                         {
                             objectMyDBContext.Skates_hire.Add(objectSkates);
@@ -110,11 +89,13 @@ namespace WpfApplicationEntity.Forms
                 using (WFAEntity.API.MyDBContext objectMyDBContext =
                         new WFAEntity.API.MyDBContext())
                 {
-                    WFAEntity.API.Skates_hire objectSkates = new WFAEntity.API.Skates_hire();
-                    objectSkates.Size = textBlockAddEditSize.Text;
-                    objectSkates.Time = textBlockAddEditTime.Text;
-                    objectSkates.Count = textBlockAddEditType.Text;
-                    objectSkates.Type = textBlockAddEditCount.Text;
+                    WFAEntity.API.Skates_hire objectSkates = new WFAEntity.API.Skates_hire(
+                    textBlockAddEditSize.Text,
+                    textBlockAddEditTime.Text,
+                    textBlockAddEditType.Text,
+                    textBlockAddEditCount.Text,
+                    (WFAEntity.API.Employees)ComboBoxAddEditEmployess.SelectedItem
+                );
                     try
                     {
                         objectMyDBContext.Skates_hire.AddOrUpdate(EditSkates);
@@ -129,8 +110,8 @@ namespace WpfApplicationEntity.Forms
                     }
                 }
             }
-        
-    
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\App.xaml
-7612253573
+8327343890
 
-20-1632323284
+21-1537242807
 15-53823526
-Forms\ClientWindow.xaml;Forms\EmployeesWindow.xaml;Forms\ServicesWindow.xaml;Forms\SheduleWindow.xaml;Forms\SkatesWindow.xaml;Forms\TicketWindow.xaml;Forms\MainWindow.xaml;
+Forms\ClientWindow.xaml;Forms\EmployeesWindow.xaml;Forms\Login.xaml;Forms\ServicesWindow.xaml;Forms\SheduleWindow.xaml;Forms\SkatesWindow.xaml;Forms\TicketWindow.xaml;Forms\MainWindow.xaml;
 
 True
 

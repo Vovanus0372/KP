@@ -34,17 +34,18 @@ namespace WFAEntity.API
         /// </summary>
         [Required]
         public string End_time { get; set; }
-        [ForeignKey("Employees")]
+        //[ForeignKey("Employees")]
         public int ID_employees { get; set; }
         /// <summary>
         /// Сотрудник
         /// </summary>
         public virtual Employees Employees { get; set; }
-        [ForeignKey("Other_services")]
+        //[ForeignKey("Other_services")]
         public int ID_other_services { get; set; }
         /// <summary>
         /// Услуги
         /// </summary>
+        //[ForeignKey("ID_other_services")]
         public virtual Other_services Other_services { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
         public MK_schedule()
@@ -56,13 +57,11 @@ namespace WFAEntity.API
             this.Price = Price;
             this.Start_time = Start_time;
             this.End_time = End_time;
-            //this.Employees = Employees;
+          //this.Employees = Employees;
             this.ID_employees = Employees.ID_employees;
             this.ID_other_services = Other_services.ID_other_services;
             this.ID_MK_schedule = ID_MK_schedule;
         }
-
-
-       
     }
 }
+ 

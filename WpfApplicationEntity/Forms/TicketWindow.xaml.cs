@@ -23,14 +23,16 @@ namespace WpfApplicationEntity.Forms
     public partial class TicketWindow : Window
     {
         MainWindow AF;
-       
+
         bool IsEdit = false;
         Ticket EditTicket;
+        private bool p1;
+        private int p2;
         public TicketWindow(MainWindow AF)
         {
             this.AF = AF;
             InitializeComponent();
-            
+
         }
         public TicketWindow(MainWindow AF, Ticket EditTicket)
         {
@@ -38,7 +40,14 @@ namespace WpfApplicationEntity.Forms
             this.AF = AF;
             this.EditTicket = EditTicket;
             InitializeComponent();
-       }
+        }
+
+        public TicketWindow(bool p1, int p2)
+        {
+            // TODO: Complete member initialization
+            this.p1 = p1;
+            this.p2 = p2;
+        }
 
         private void ButtonAddEditTicket_Click(object sender, RoutedEventArgs e)
         {
@@ -49,12 +58,15 @@ namespace WpfApplicationEntity.Forms
                     using (WFAEntity.API.MyDBContext objectMyDBContext =
                             new WFAEntity.API.MyDBContext())
                     {
-                        WFAEntity.API.Ticket objectTicket = new WFAEntity.API.Ticket();
-                        objectTicket.ID_Ticket = objectMyDBContext.Ticket.Count();
-                        objectTicket.ID_Ticket++;
-                        objectTicket.Cost = textBlockAddEditCost.Text;
-                        objectTicket.Amount = textBlockAddEditAmount.Text;
-                        objectTicket.Status = textBlockAddEditStatus.Text;
+                        WFAEntity.API.Ticket objectTicket = new WFAEntity.API.Ticket(
+                        textBlockAddEditCost.Text,
+                        textBlockAddEditAmount.Text,
+                        textBlockAddEditStatus.Text,
+                        (WFAEntity.API.Client)ComboBoxAddEditClient.SelectedItem,
+                        (WFAEntity.API.MK_schedule)ComboBoxAddEditShedule.SelectedItem,
+                        (WFAEntity.API.Other_services)ComboBoxAddEditServices.SelectedItem,
+                        (WFAEntity.API.Skates_hire)ComboBoxAddEditSkates.SelectedItem
+                        );
                         try
                         {
                             objectMyDBContext.Ticket.Add(objectTicket);
@@ -105,8 +117,14 @@ namespace WpfApplicationEntity.Forms
             using (WFAEntity.API.MyDBContext objectMyDBContext =
                     new WFAEntity.API.MyDBContext())
             {
-                ComboBoxAddEditTicket.ItemsSource = WFAEntity.API.DatabaseRequest.GetTicket(objectMyDBContext);
-                ComboBoxAddEditTicket.Text = "{Binging Name}";
+                ComboBoxAddEditClient.ItemsSource = WFAEntity.API.DatabaseRequest.GetClients(objectMyDBContext);
+                ComboBoxAddEditClient.Text = "{Binging Name}";
+                ComboBoxAddEditShedule.ItemsSource = WFAEntity.API.DatabaseRequest.GetShedule(objectMyDBContext);
+                ComboBoxAddEditShedule.Text = "{Binging Date}";
+                ComboBoxAddEditServices.ItemsSource = WFAEntity.API.DatabaseRequest.GetServices(objectMyDBContext);
+                ComboBoxAddEditServices.Text = "{Binging Name}";
+                ComboBoxAddEditSkates.ItemsSource = WFAEntity.API.DatabaseRequest.GetSkates(objectMyDBContext);
+                ComboBoxAddEditSkates.Text = "{Binging Size}";
             }
         }
     }

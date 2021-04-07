@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WFAEntity.API
 {
@@ -12,7 +13,7 @@ namespace WFAEntity.API
         /// ID_Клиента
         /// </summary>
         [Key]
-        public int ID_client { get; set; }
+        public int ID_Client { get; set; }
         /// <summary>
         /// Фамилия
         /// </summary>
@@ -32,12 +33,22 @@ namespace WFAEntity.API
         /// Адрес
         /// </summary>
         [Required]
-        public string Adress { get; set; }
+        public string Address { get; set; }
         /// <summary>
         /// Телефон
         /// </summary>
         [Required]
         public string Number { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
+          public Client() { }
+          public Client(string Surname, string Name, string Patronymic, string Address, string Number, int ID_Client = 0)
+        {
+            this.Surname = Surname;
+            this.Name = Name;
+            this.Patronymic = Patronymic;
+            this.Address = Address;
+            this.Number = Number;
+            this.ID_Client = ID_Client;
+        }
     }
 }

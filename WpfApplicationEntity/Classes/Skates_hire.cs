@@ -34,7 +34,7 @@ namespace WFAEntity.API
         /// </summary>
         [Required]
         public string Type { get; set; }
-        [ForeignKey("Employees")]
+        //[ForeignKey("Employees")]
         public int ID_employees { get; set; }
         //[Required]
         /// <summary>

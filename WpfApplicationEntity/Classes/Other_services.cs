@@ -13,6 +13,7 @@ namespace WFAEntity.API
         /// Id_Другие_услуги
         /// </summary>
         [Key]
+        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_other_services { get; set; }
         /// <summary>
         /// Название
@@ -24,7 +25,7 @@ namespace WFAEntity.API
         /// </summary>
         [Required]
         public string The_cost { get; set; }
-        [ForeignKey("Employees")]
+        //[ForeignKey("Employees")]
         public int ID_employees { get; set; }
         //[Required]
         /// <summary>
@@ -34,6 +35,12 @@ namespace WFAEntity.API
         /// <summary>
         /// Услуги
         /// </summary>
+        /// 
+
+        //[ForeignKey("MK_schedule")]
+        //public int ID_MK_schedulet { get; set; }
+        // public virtual MK_schedule MK_schedule { get; set; }
+
         public Other_services()
         {
         }

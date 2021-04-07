@@ -29,7 +29,9 @@
         <Label Content="Время конца" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Padding="0" Margin="3" VerticalAlignment="Top"/>
         <TextBox x:Name="textBlockAddEditEnd" Grid.Column="1" Grid.Row="3" Padding="0" Margin="3" />
         <Label Content="Услуга" Grid.Column="0" Grid.Row="4" Padding="0" Margin="3"/>
-        <ComboBox x:Name="ComboBoxAddEditServices" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="4" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditServices" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="4" Padding="0" Margin="3"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="ID_other_services"/>
         <Label Content="Сотрудник" Grid.Column="0" Grid.Row="5" Padding="0" Margin="3"/>
         <ComboBox x:Name="ComboBoxAddEditEmployees" Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="5" Padding="0" Margin="3"
                    DisplayMemberPath="Name"

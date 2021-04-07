@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplicationEntity.Forms"
         mc:Ignorable="d"
-        Title="ClientWindow" Height="210" Width="200">
+        Title="ClientWindow" Height="210" Width="200" >
     <Grid RenderTransformOrigin="0.502,0.833">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -21,13 +21,13 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditSurname" Grid.Column="1" Grid.Row="0" Padding="0" Margin="3" />
-        <Label Content="Имя" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+        <Label Content="Имя" Grid.Column="0" Grid.Row="1" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditName" Grid.Column="1" Grid.Row="1" Margin="3" Text=""/>
-        <Label Content="Отчество" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+        <Label Content="Отчество" Grid.Column="0" Grid.Row="2" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditPatronymic" Grid.Column="1" Grid.Row="2" Padding="0" Margin="3" />
-        <Label Content="Адрес" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+        <Label Content="Адрес" Grid.Column="0" Grid.Row="3" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditAdress" Grid.Column="1" Grid.Row="3" Padding="0" Margin="3" />
-        <Label Content="Телефон" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+        <Label Content="Телефон" Grid.Column="0" Grid.Row="4" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditTelephone" Grid.Column="1" Grid.Row="4" Padding="0" Margin="3" />
         <Button x:Name="ButtonAddEditClient"  Grid.Column="0" Grid.Row="5" Content="Добавить" Grid.ColumnSpan="2" Padding="0" Margin="3" Click="ButtonAddEditGroup_Click"/>
     </Grid>

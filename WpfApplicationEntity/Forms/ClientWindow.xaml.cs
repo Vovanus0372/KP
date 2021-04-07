@@ -49,12 +49,10 @@ namespace WpfApplicationEntity.Forms
                             new WFAEntity.API.MyDBContext())
                     {
                         WFAEntity.API.Client objectClient = new WFAEntity.API.Client();
-                        objectClient.ID_client = objectMyDBContext.Client.Count();
-                        objectClient.ID_client++;
                         objectClient.Surname = textBlockAddEditSurname.Text;
                         objectClient.Name = textBlockAddEditName.Text;
                         objectClient.Patronymic = textBlockAddEditPatronymic.Text;
-                        objectClient.Adress = textBlockAddEditAdress.Text;
+                        objectClient.Address = textBlockAddEditAdress.Text;
                         objectClient.Number = textBlockAddEditTelephone.Text;
                         try
                         {
@@ -85,7 +83,7 @@ namespace WpfApplicationEntity.Forms
                     EditClient.Surname = textBlockAddEditSurname.Text;
                     EditClient.Name = textBlockAddEditName.Text;
                     EditClient.Patronymic = textBlockAddEditPatronymic.Text;
-                    EditClient.Adress = textBlockAddEditAdress.Text;
+                    EditClient.Address = textBlockAddEditAdress.Text;
                     EditClient.Number = textBlockAddEditTelephone.Text;
                     try
                     {

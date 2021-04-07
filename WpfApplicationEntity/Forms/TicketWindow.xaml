@@ -13,6 +13,9 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -24,10 +27,24 @@
         <TextBox x:Name="textBlockAddEditAmount" Grid.Column="1" Grid.Row="1" Padding="0" Margin="3" Text=""/>
         <Label Content="Статус" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Padding="0" Margin="3" VerticalAlignment="Top"/>
         <TextBox x:Name="textBlockAddEditStatus" Grid.Column="1" Grid.Row="2" Padding="0" Margin="3" />
-        <Label Content="Услуга" Grid.Column="0" Grid.Row="3" Padding="0" Margin="3"/>
-        <ComboBox x:Name="ComboBoxAddEditTicket" Grid.ColumnSpan="4" Grid.Column="4" Grid.Row="3" Padding="0" Margin="3"/>
-        <Button x:Name="ButtonAddEditTicket"  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Padding="0" Margin="1" Click="ButtonAddEditTicket_Click">
-            <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
+        <Label Content="Клиент" Grid.Column="0" Grid.Row="3" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditClient" Grid.ColumnSpan="4" Grid.Column="4" Grid.Row="3" Padding="0" Margin="3"
+                   DisplayMemberPath="Name"
+                  SelectedValuePath="ID_Client"/>
+        <Label Content="График МК" Grid.Column="0" Grid.Row="4" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditShedule" Grid.ColumnSpan="4" Grid.Column="4" Grid.Row="4" Padding="0" Margin="3"
+                   DisplayMemberPath="Date"
+                  SelectedValuePath="ID_MK_shedule"/>
+        <Label Content="Услуга" Grid.Column="0" Grid.Row="5" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditServices" Grid.ColumnSpan="4" Grid.Column="4" Grid.Row="5" Padding="0" Margin="3"
+                   DisplayMemberPath="Name"
+                  SelectedValuePath="ID_other_services"/>
+        <Label Content="Коньки" Grid.Column="0" Grid.Row="6" Padding="0" Margin="3"/>
+        <ComboBox x:Name="ComboBoxAddEditSkates" Grid.ColumnSpan="4" Grid.Column="4" Grid.Row="6" Padding="0" Margin="3"
+                   DisplayMemberPath="Size"
+                  SelectedValuePath="ID_skates_hire"/>
+        <Button x:Name="ButtonAddEditTicket"   Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Padding="0" Margin="1" Click="ButtonAddEditTicket_Click">
+            <TextBlock TextWrapping="Wrap" Text="Добавить"/>
         </Button>
     </Grid>
 </Window>

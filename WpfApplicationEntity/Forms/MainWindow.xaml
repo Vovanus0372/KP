@@ -14,16 +14,19 @@
                     <StackPanel>
                         <WrapPanel>
                             <Button x:Name="addTicketButton"  Content="Добавить" Margin="3" Padding="3" Click="addTicketButton_Click"></Button>
-                            <Button x:Name="editTicketButton"  Content="Удалить" Margin="3" Padding="3"></Button>
-                            <Button x:Name="deleteTicketButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteTicketButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteTicketButton_Click" ></Button>
+                            <Button x:Name="editTicketButton"  Content="Изменить" Margin="3" Padding="3"></Button>
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="TicketsGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ID_Ticket}" Header="ID_Ticket" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_Ticket}" Header="ID_Ticket" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Cost}" Header="Стоимость"/>
                                 <DataGridTextColumn Binding="{Binding Amount}" Header="Количество"/>
                                 <DataGridTextColumn Binding="{Binding Status}" Header="Статус"/>
-                                <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
+                                <DataGridTextColumn Binding="{Binding Client}" Header="Клиент"/>
+                                <DataGridTextColumn Binding="{Binding MK_schedule}" Header="График МК"/>
+                                <DataGridTextColumn Binding="{Binding Other_services}" Header="Услуга"/>
+                                <DataGridTextColumn Binding="{Binding Skates_hire}" Header="Коньки"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -39,16 +42,17 @@
                     <StackPanel>
                         <WrapPanel>
                             <Button x:Name="addSheduleButton"  Content="Добавить" Margin="3" Padding="3" Click="addSheduleButton_Click"></Button>
-                            <Button x:Name="editSheduleButton"  Content="Удалить" Margin="3" Padding="3"></Button>
-                            <Button x:Name="deleteSheduleButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteSheduleButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteSheduleButton_Click"></Button>
+                            <Button x:Name="editSheduleButton"  Content="Изменить" Margin="3" Padding="3"></Button>
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="SheduleGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ID_MK_schedule}" Header="ID_MK_schedule" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_MK_schedule}" Header="ID_MK_schedule" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Date}" Header="Дата"/>
                                 <DataGridTextColumn Binding="{Binding Price}" Header="Цена"/>
                                 <DataGridTextColumn Binding="{Binding Start_time}" Header="Время начала"/>
                                 <DataGridTextColumn Binding="{Binding End_time}" Header="Время конца"/>
+                                <DataGridTextColumn Binding="{Binding Other_services}" Header="Услуга"/>
                                 <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
                             </DataGrid.Columns>
                         </DataGrid>
@@ -65,12 +69,12 @@
                     <StackPanel>
                         <WrapPanel>
                             <Button x:Name="addServiceButton"  Content="Добавить" Margin="3" Padding="3" Click="addServiceButton_Click"></Button>
-                            <Button x:Name="editServiceButton"  Content="Удалить" Margin="3" Padding="3"></Button>
-                            <Button x:Name="deleteServiceButton"  Content="Изменить" Margin="3" Padding="3"></Button>
+                            <Button x:Name="deleteServiceButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteServiceButton_Click"></Button>
+                            <Button x:Name="editServiceButton"  Content="Изменить" Margin="3" Padding="3" Click="editServiceButton_Click"></Button>
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="ServiceGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ID_other_services}" Header="ID_other_services" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_other_services}" Header="ID_other_services" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Name}" Header="Название"/>
                                 <DataGridTextColumn Binding="{Binding The_cost}" Header="Стоимость"/>
                                 <DataGridTextColumn Binding="{Binding Employees}" Header="Сотрудник"/>
@@ -95,11 +99,11 @@
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="ClientGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_Client}" Header="Id" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
                                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
                                 <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество"/>
-                                <DataGridTextColumn Binding="{Binding Adress}" Header="Адрес"/>
+                                <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"/>
                                 <DataGridTextColumn Binding="{Binding Number}" Header="Номер телефона"/>
                             </DataGrid.Columns>
                         </DataGrid>
@@ -116,12 +120,12 @@
                     <StackPanel>
                         <WrapPanel>
                             <Button x:Name="addSkatesButton"  Content="Добавить" Margin="3" Padding="3" Click="addSkatesButton_Click"></Button>
-                            <Button x:Name="deleteSkatesButton"  Content="Удалить" Margin="3" Padding="3"></Button>
-                            <Button x:Name="editSkatesButton"  Content="Изменить" Margin="3" Padding="3" Click="editSkatesButton_Click"></Button>
+                            <Button x:Name="deleteSkatesButton"  Content="Удалить" Margin="3" Padding="3" Click="deleteSkatesButton_Click"></Button>
+                            <Button x:Name="editSkatesButton"  Content="Изменить" Margin="3" Padding="3" Click="editSkatesButton_Click"/>
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="SkatesGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ID_skates_hire}" Header="Id" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_skates_hire}" Header="Id" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Size}" Header="Размер"/>
                                 <DataGridTextColumn Binding="{Binding Time}" Header="Время"/>
                                 <DataGridTextColumn Binding="{Binding Type}" Header="Тип"/>
@@ -147,7 +151,7 @@
                         </WrapPanel>
                         <DataGrid AutoGenerateColumns="False" x:Name="EmployeesGrid">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ID_employees}" Header="ID_employees" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding ID_employees}" Header="ID_employees" Visibility="Visible"/>
                                 <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
                                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
                                 <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество"/>

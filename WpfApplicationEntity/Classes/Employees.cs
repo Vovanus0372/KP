@@ -59,9 +59,24 @@ namespace WFAEntity.API
         /// </summary>
         [Required]
         public string Telephone { get; set; }
-        public virtual ICollection<Other_services> other_services { get; set; }
+        public virtual ICollection<Other_services> Other_services { get; set; }
         public virtual ICollection<Skates_hire> Skates_hire { get; set; }
         public virtual ICollection<MK_schedule> MK_schedule { get; set; }
-       
+        public Employees() { }
+        public Employees(string Surname,string Name, string Patronymic,string Address,string Date ,string Position,string Login ,string Password, string Telephone, int ID_employees = 0)
+        {
+            this.Surname = Surname;
+            this.Name = Name;
+            this.Patronymic = Patronymic;
+            this.Address = Address;
+            this.Date = Date;
+            this.Position = Position;
+            this.Login = Login;
+            this.Password = Password;
+            this.Telephone = Telephone;
+            this.ID_employees = ID_employees;
+            
+        }
+
     }
 }
