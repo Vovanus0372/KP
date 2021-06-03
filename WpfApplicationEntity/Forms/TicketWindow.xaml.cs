@@ -18,104 +18,83 @@ using System.Data.Entity.Migrations;
 namespace WpfApplicationEntity.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для GroupWindow.xaml
+    /// Логика взаимодействия для SkatesWindow.xaml
     /// </summary>
-    public partial class TicketWindow : Window
+    partial class TicketWindow : Window
     {
-        MainWindow AF;
 
-        bool IsEdit = false;
-        Ticket EditTicket;
-        private bool p1;
-        private int p2;
-        public TicketWindow(MainWindow AF)
-        {
-            this.AF = AF;
-            InitializeComponent();
+        private readonly bool add_edit;
+        private readonly int id;
 
-        }
-        public TicketWindow(MainWindow AF, Ticket EditTicket)
+        public TicketWindow()
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditTicket = EditTicket;
             InitializeComponent();
         }
-
-        public TicketWindow(bool p1, int p2)
+        public TicketWindow(bool add_edit, int id = 0)
         {
             // TODO: Complete member initialization
-            this.p1 = p1;
-            this.p2 = p2;
-        }
+            InitializeComponent();
+            this.add_edit = add_edit;
+            this.id = id;
 
-        private void ButtonAddEditTicket_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsEdit)
+            using (WFAEntity.API.MyDBContext objectMyDBContext =
+                        new WFAEntity.API.MyDBContext())
             {
-                if (textBlockAddEditCost.Text != string.Empty)
+                if (this.add_edit == false)
                 {
-                    using (WFAEntity.API.MyDBContext objectMyDBContext =
-                            new WFAEntity.API.MyDBContext())
-                    {
-                        WFAEntity.API.Ticket objectTicket = new WFAEntity.API.Ticket(
-                        textBlockAddEditCost.Text,
-                        textBlockAddEditAmount.Text,
-                        textBlockAddEditStatus.Text,
-                        (WFAEntity.API.Client)ComboBoxAddEditClient.SelectedItem,
-                        (WFAEntity.API.MK_schedule)ComboBoxAddEditShedule.SelectedItem,
-                        (WFAEntity.API.Other_services)ComboBoxAddEditServices.SelectedItem,
-                        (WFAEntity.API.Skates_hire)ComboBoxAddEditSkates.SelectedItem
-                        );
-                        try
-                        {
-                            objectMyDBContext.Ticket.Add(objectTicket);
-                            objectMyDBContext.SaveChanges();
-                            MessageBox.Show("Билет добавлен");
-                            this.DialogResult = true;
-                            AF.ShowAll();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
+                    WFAEntity.API.Ticket objectTicket = WFAEntity.API.DatabaseRequest.GetTicketById(objectMyDBContext, this.id);
+                    textBlockAddEditCost.Text = objectTicket.Cost;
+                    textBlockAddEditAmount.Text = objectTicket.Amount;
+                    textBlockAddEditStatus.Text = objectTicket.Status;
+                    ButtonAddEditTicket.Content = "Изменить";
                 }
             }
-            else
+        }
+        private bool IsDataCorrect()
+        {
+            return (textBlockAddEditCost.Text != string.Empty) ||
+                (textBlockAddEditAmount.Text != string.Empty) ||
+                (textBlockAddEditStatus.Text != string.Empty);
+        }
+        private void ButtonAddEditTicket_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.IsDataCorrect() == true)
             {
                 using (WFAEntity.API.MyDBContext objectMyDBContext =
                         new WFAEntity.API.MyDBContext())
                 {
-                    WFAEntity.API.Employees objectTicket = new WFAEntity.API.Employees();
-                    EditTicket.Cost = textBlockAddEditCost.Text;
-                    EditTicket.Amount = textBlockAddEditAmount.Text;
-                    EditTicket.Status = textBlockAddEditStatus.Text;
-                    try
+                    WFAEntity.API.Ticket objectTicket = new WFAEntity.API.Ticket(
+                    textBlockAddEditCost.Text,
+                    textBlockAddEditAmount.Text,
+                    textBlockAddEditStatus.Text,
+                    (WFAEntity.API.Client)ComboBoxAddEditClient.SelectedItem,
+                        (WFAEntity.API.MK_schedule)ComboBoxAddEditShedule.SelectedItem,
+                        (WFAEntity.API.Other_services)ComboBoxAddEditServices.SelectedItem,
+                        (WFAEntity.API.Skates_hire)ComboBoxAddEditSkates.SelectedItem
+                        );
+                    if (this.add_edit == true)
                     {
-                        objectMyDBContext.Ticket.AddOrUpdate(EditTicket);
+                        objectMyDBContext.Ticket.Add(objectTicket);
+                    }
+                    else
+                    {
+                        objectTicket.ID_Ticket = WFAEntity.API.DatabaseRequest.GetTicketById(objectMyDBContext, this.id).ID_Ticket;
+                        WFAEntity.API.Ticket objectStudentFromDataBase = new WFAEntity.API.Ticket();
+                        objectStudentFromDataBase = WFAEntity.API.DatabaseRequest.GetTicketById(objectMyDBContext, this.id);
+                        objectMyDBContext.Entry(objectStudentFromDataBase).CurrentValues.SetValues(objectTicket);
                         objectMyDBContext.SaveChanges();
-                        MessageBox.Show("Билет Редактирован");
-                        this.DialogResult = true;
-                        AF.ShowAll();
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    objectMyDBContext.SaveChanges();
+                    this.DialogResult = true;
                 }
             }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             using (WFAEntity.API.MyDBContext objectMyDBContext =
-                    new WFAEntity.API.MyDBContext())
+                        new WFAEntity.API.MyDBContext())
             {
                 ComboBoxAddEditClient.ItemsSource = WFAEntity.API.DatabaseRequest.GetClients(objectMyDBContext);
                 ComboBoxAddEditClient.Text = "{Binging Name}";

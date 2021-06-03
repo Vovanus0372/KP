@@ -10,101 +10,123 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data.SqlClient;
-using System.Data.Entity.Migrations;
-using WFAEntity.API;
 
 namespace WpfApplicationEntity.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для GroupWindow.xaml
+    /// Логика взаимодействия для GroupAddEditWindow.xaml
     /// </summary>
     public partial class EmployeesWindow : Window
     {
-        MainWindow AF;
-        bool IsEdit = false;
-        Employees EditEmployees;
-        public EmployeesWindow(MainWindow AF)
+        private bool add_edit;
+        private int id;
+        public EmployeesWindow()
         {
-            this.AF = AF;
             InitializeComponent();
         }
-        public EmployeesWindow(MainWindow AF, Employees EditEmployees)
+        public EmployeesWindow(bool add_edit, int id = 0)
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditEmployees = EditEmployees;
             InitializeComponent();
+            this.add_edit = add_edit;
+            this.id = id;
+            if (this.add_edit == false)
+            {
+                using (WFAEntity.API.MyDBContext objectMyDBContext =
+                            new WFAEntity.API.MyDBContext())
+                {
+                    WFAEntity.API.Employees objectEmployees = WFAEntity.API.DatabaseRequest.GetEmployeesById(objectMyDBContext, this.id);
+                    objectEmployees.Surname = objectEmployees.Surname;
+                    objectEmployees.Name = objectEmployees.Name;
+                    objectEmployees.Patronymic = objectEmployees.Patronymic;
+                    objectEmployees.Address = objectEmployees.Address;
+                    objectEmployees.Telephone = objectEmployees.Telephone;
+                    objectEmployees.Position = objectEmployees.Position;
+                    objectEmployees.Date = objectEmployees.Date;
+                    objectEmployees.Password  = objectEmployees.Password;
+                    objectEmployees.Login = objectEmployees.Login;
 
+                }
+                ButtonAddEditEmployees.Content = "Изменить";
+            }
+        }
+        private bool IsDataCorrcet()
+        {
+            if (textBlockAddEditSurname.Text != string.Empty ||textBlockAddEditName.Text != string.Empty || textBlockAddEditPatronymic.Text != string.Empty || textBlockAddEditAddress.Text != string.Empty || textBlockAddEditTelephone.Text != string.Empty || textBlockAddEditPosition.Text != string.Empty || textBlockAddEditDate.Text != string.Empty || textBlockAddEditPassword.Text != string.Empty || textBlockAddEditLogin.Text != string.Empty);
+                return true;
+            return false;
+             
         }
         private void ButtonAddEditEmployees_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsEdit)
+            WFAEntity.API.Employees objectEmployees = new WFAEntity.API.Employees();
+            if (this.add_edit == true)
             {
-                if (textBlockAddEditSurname.Text != string.Empty)
+                objectEmployees.Surname = textBlockAddEditSurname.Text;
+                objectEmployees.Name = textBlockAddEditName.Text;
+                objectEmployees.Patronymic = textBlockAddEditPatronymic.Text;
+                objectEmployees.Address = textBlockAddEditAddress.Text;
+                objectEmployees.Telephone = textBlockAddEditTelephone.Text;
+                objectEmployees.Position = textBlockAddEditPosition.Text;
+                objectEmployees.Date = textBlockAddEditDate.Text;
+                objectEmployees.Password = textBlockAddEditPassword.Text;
+                objectEmployees.Login = textBlockAddEditLogin.Text;
+                try
                 {
-                    using (WFAEntity.API.MyDBContext objectMyDBContext =
-                            new WFAEntity.API.MyDBContext())
+                    if (this.IsDataCorrcet() == true)
                     {
-                        WFAEntity.API.Employees objectEmployees = new WFAEntity.API.Employees();
-                        objectEmployees.ID_employees = objectMyDBContext.Employees.Count();
-                        objectEmployees.ID_employees++;
-                        objectEmployees.Surname = textBlockAddEditSurname.Text;
-                        objectEmployees.Name = textBlockAddEditName.Text;
-                        objectEmployees.Patronymic = textBlockAddEditPatronymic.Text;
-                        objectEmployees.Address = textBlockAddEditAddress.Text;
-                        objectEmployees.Telephone = textBlockAddEditTelephone.Text;
-                        objectEmployees.Position = textBlockAddEditPosition.Text;
-                        objectEmployees.Date = textBlockAddEditDate.Text;
-                        objectEmployees.Password = textBlockAddEditPassword.Text;
-                        objectEmployees.Login = textBlockAddEditLogin.Text;
-                        try
+                        using (WFAEntity.API.MyDBContext objectMyDBContext =
+                                new WFAEntity.API.MyDBContext())
                         {
                             objectMyDBContext.Employees.Add(objectEmployees);
                             objectMyDBContext.SaveChanges();
-                            MessageBox.Show("Сотрудник добавлен");
-                            this.DialogResult = true;
-                            AF.ShowAll();
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                        MessageBox.Show("Группа добавлена");
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ввод данных", "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
+                    MessageBox.Show("Заполните все поля верно", "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                using (WFAEntity.API.MyDBContext objectMyDBContext =
-                        new WFAEntity.API.MyDBContext())
+                try
                 {
-                    WFAEntity.API.Employees objectEmployees = new WFAEntity.API.Employees();
-                    EditEmployees.Surname = textBlockAddEditSurname.Text;
-                    EditEmployees.Name = textBlockAddEditName.Text;
-                    EditEmployees.Patronymic = textBlockAddEditPatronymic.Text;
-                    EditEmployees.Address = textBlockAddEditAddress.Text;
-                    EditEmployees.Telephone = textBlockAddEditTelephone.Text;
-                    EditEmployees.Position = textBlockAddEditPosition.Text;
-                    EditEmployees.Date = textBlockAddEditDate.Text;
-                    EditEmployees.Login = textBlockAddEditLogin.Text;
-                    EditEmployees.Password = textBlockAddEditPassword.Text;
-                    try
+                    if (this.IsDataCorrcet())
                     {
-                        objectMyDBContext.Employees.AddOrUpdate(EditEmployees);
-                        objectMyDBContext.SaveChanges();
-                        MessageBox.Show("Клиент Редактирован");
+                        using (WFAEntity.API.MyDBContext objectMyDBContext =
+                            new WFAEntity.API.MyDBContext())
+                        {
+                            WFAEntity.API.Employees objectEmpl = new WFAEntity.API.Employees();
+                            objectEmpl = WFAEntity.API.DatabaseRequest.GetEmployeesById(objectMyDBContext, this.id);
+                            objectEmpl.Surname = textBlockAddEditSurname.Text;
+                            objectEmpl.Name = textBlockAddEditName.Text;
+                            objectEmpl.Patronymic = textBlockAddEditPatronymic.Text;
+                            objectEmpl.Address = textBlockAddEditAddress.Text;
+                            objectEmpl.Telephone = textBlockAddEditTelephone.Text;
+                            objectEmpl.Position = textBlockAddEditPosition.Text;
+                            objectEmpl.Date = textBlockAddEditDate.Text;
+                            objectEmpl.Password = textBlockAddEditPassword.Text;
+                            objectEmpl.Login = textBlockAddEditLogin.Text;
+                            objectMyDBContext.Entry(objectEmpl).State = System.Data.Entity.EntityState.Modified;
+                            objectMyDBContext.SaveChanges();
+                        }
+                        MessageBox.Show("Группа изменена");
                         this.DialogResult = true;
-                        AF.ShowAll();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Ввод данных", "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

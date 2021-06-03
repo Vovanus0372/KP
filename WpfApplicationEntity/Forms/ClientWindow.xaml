@@ -29,6 +29,6 @@
         <TextBox x:Name="textBlockAddEditAdress" Grid.Column="1" Grid.Row="3" Padding="0" Margin="3" />
         <Label Content="Телефон" Grid.Column="0" Grid.Row="4" Padding="0" Margin="3"/>
         <TextBox x:Name="textBlockAddEditTelephone" Grid.Column="1" Grid.Row="4" Padding="0" Margin="3" />
-        <Button x:Name="ButtonAddEditClient"  Grid.Column="0" Grid.Row="5" Content="Добавить" Grid.ColumnSpan="2" Padding="0" Margin="3" Click="ButtonAddEditGroup_Click"/>
+        <Button x:Name="ButtonAddEditClient"  Grid.Column="0" Grid.Row="5" Content="Добавить" Grid.ColumnSpan="2" Padding="0" Margin="3" Click="ButtonAddEditClient_Click"/>
     </Grid>
 </Window>

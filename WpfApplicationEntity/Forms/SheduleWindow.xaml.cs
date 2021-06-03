@@ -18,115 +18,90 @@ using System.Data.Entity.Migrations;
 namespace WpfApplicationEntity.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для SheduleWindow.xaml
+    /// Логика взаимодействия для SkatesWindow.xaml
     /// </summary>
-    public partial class SheduleWindow : Window
+    partial class SheduleWindow : Window
     {
-       MainWindow AF;
 
-        bool IsEdit = false;
-        MK_schedule EditShedule;
-        public SheduleWindow(MainWindow AF)
-        {
-            this.AF = AF;
-            InitializeComponent();
+        private readonly bool add_edit;
+        private readonly int id;
 
-        }
-        public SheduleWindow(MainWindow AF, MK_schedule EditShedule)
+        public SheduleWindow()
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditShedule = EditShedule;
             InitializeComponent();
         }
-
-        private void ButtonAddEditShedule_Click(object sender, RoutedEventArgs e)
+        public SheduleWindow(bool add_edit, int id = 0)
         {
-            if (!IsEdit)
+            // TODO: Complete member initialization
+            InitializeComponent();
+            this.add_edit = add_edit;
+            this.id = id;
+
+            using (WFAEntity.API.MyDBContext objectMyDBContext =
+                        new WFAEntity.API.MyDBContext())
             {
-                if (textBlockAddEditDate.Text != string.Empty)
+                if (this.add_edit == false)
                 {
-                    using (WFAEntity.API.MyDBContext objectMyDBContext =
-                            new WFAEntity.API.MyDBContext())
-                    {
-                        WFAEntity.API.MK_schedule objectShedule = new WFAEntity.API.MK_schedule(
-                        textBlockAddEditDate.Text,
-                        textBlockAddEditPrice.Text,
-                        textBlockAddEditStart.Text,
-                        textBlockAddEditEnd.Text,
-                        (WFAEntity.API.Employees)ComboBoxAddEditEmployees.SelectedItem,
-                        (WFAEntity.API.Other_services)ComboBoxAddEditServices.SelectedItem
-                        );
-                        try
-                        {
-                            objectMyDBContext.MK_schedule.Add(objectShedule);
-                            objectMyDBContext.SaveChanges();
-                            MessageBox.Show("Расписание добавлено");
-                            this.DialogResult = true;
-                            AF.ShowAll();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
+                    WFAEntity.API.MK_schedule objectShedule = WFAEntity.API.DatabaseRequest.GetSheduleById(objectMyDBContext, this.id);
+                    textBlockAddEditDate.Text = objectShedule.Date;
+                    textBlockAddEditPrice.Text = objectShedule.Price;
+                    textBlockAddEditStart.Text = objectShedule.Start_time;
+                    textBlockAddEditEnd.Text = objectShedule.End_time;
+
+                    ButtonAddEditShedule.Content = "Изменить";
                 }
             }
-            else
+        }
+        private bool IsDataCorrect()
+        {
+            return (textBlockAddEditDate.Text != string.Empty) ||
+                (textBlockAddEditPrice.Text != string.Empty) ||
+                (textBlockAddEditStart.Text != string.Empty) ||
+                (textBlockAddEditEnd.Text != string.Empty);
+        }
+        private void ButtonAddEditShedule_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.IsDataCorrect() == true)
             {
                 using (WFAEntity.API.MyDBContext objectMyDBContext =
                         new WFAEntity.API.MyDBContext())
                 {
-                    WFAEntity.API.MK_schedule objectShedule = new WFAEntity.API.MK_schedule();
-                    objectShedule.Date = textBlockAddEditDate.Text;
-                    objectShedule.Price = textBlockAddEditPrice.Text;
-                    objectShedule.Start_time = textBlockAddEditStart.Text;
-                    objectShedule.End_time = textBlockAddEditEnd.Text;
-                    try
+                    WFAEntity.API.MK_schedule objectShedule = new WFAEntity.API.MK_schedule(
+                    textBlockAddEditDate.Text,
+                    textBlockAddEditPrice.Text,
+                    textBlockAddEditStart.Text,
+                    textBlockAddEditEnd.Text,
+                     (WFAEntity.API.Employees)ComboBoxAddEditEmployees.SelectedItem,
+                        (WFAEntity.API.Other_services)ComboBoxAddEditServices.SelectedItem
+                        );
+                    if (this.add_edit == true)
                     {
-                        objectMyDBContext.MK_schedule.AddOrUpdate(EditShedule);
+                        objectMyDBContext.MK_schedule.Add(objectShedule);
+                    }
+                    else
+                    {
+                        objectShedule.ID_MK_schedule = WFAEntity.API.DatabaseRequest.GetSheduleById(objectMyDBContext, this.id).ID_MK_schedule;
+                        WFAEntity.API.MK_schedule objectStudentFromDataBase = new WFAEntity.API.MK_schedule();
+                        objectStudentFromDataBase = WFAEntity.API.DatabaseRequest.GetSheduleById(objectMyDBContext, this.id);
+                        objectMyDBContext.Entry(objectStudentFromDataBase).CurrentValues.SetValues(objectShedule);
                         objectMyDBContext.SaveChanges();
-                        MessageBox.Show("Расписание Редактировано");
-                        this.DialogResult = true;
-                        AF.ShowAll();
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    objectMyDBContext.SaveChanges();
+                    this.DialogResult = true;
                 }
             }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //var tmp = MyDBContext.DBContext.Other_services.ToList();
-            //List<string> Strings = new List<string>();
-            //for (int i = 0; i < tmp.Count; i++)
-            //{
-            //    Strings.Add(tmp[0].Name + " " + tmp[0].The_cost);
-            //}
-            //ComboBoxAddEditServices.ItemsSource = Strings;
-
-            //var tmp1 = MyDBContext.DBContext.Employees.ToList();
-            //List<string> Strings1 = new List<string>();
-            //for (int i = 0; i < tmp1.Count; i++)
-            //{
-            //    Strings1.Add(tmp1[0].Name + " " + tmp1[0].Surname);
-            //}
-            //ComboBoxAddEditEmployees.ItemsSource = Strings1;
             using (WFAEntity.API.MyDBContext objectMyDBContext =
                         new WFAEntity.API.MyDBContext())
             {
-                ComboBoxAddEditEmployees.ItemsSource = WFAEntity.API.DatabaseRequest.GetEmployees(objectMyDBContext);
-                ComboBoxAddEditEmployees.Text = "{Binging Name}";
                 ComboBoxAddEditServices.ItemsSource = WFAEntity.API.DatabaseRequest.GetServices(objectMyDBContext);
                 ComboBoxAddEditServices.Text = "{Binging Name}";
+                ComboBoxAddEditEmployees.ItemsSource = WFAEntity.API.DatabaseRequest.GetEmployees(objectMyDBContext);
+                ComboBoxAddEditEmployees.Text = "{Binging Name}";
             }
         }
     }

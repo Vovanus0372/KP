@@ -18,61 +18,69 @@ using System.Data.Entity.Migrations;
 namespace WpfApplicationEntity.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для GroupWindow.xaml
+    /// Логика взаимодействия для SkatesWindow.xaml
     /// </summary>
-    public partial class ServicesWindow : Window
+    partial class ServicesWindow : Window
     {
-        MainWindow AF;
 
-        bool IsEdit = false;
-        Other_services EditServices;
-        private bool p1;
-        private int p2;
-        public ServicesWindow(MainWindow AF)
+        private readonly bool add_edit;
+        private readonly int id;
+
+        public ServicesWindow()
         {
-            this.AF = AF;
             InitializeComponent();
-
         }
-        public ServicesWindow(MainWindow AF, Other_services EditServices)
+        public ServicesWindow(bool add_edit, int id = 0)
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditServices = EditServices;
+            // TODO: Complete member initialization
             InitializeComponent();
+            this.add_edit = add_edit;
+            this.id = id;
+
+            using (WFAEntity.API.MyDBContext objectMyDBContext =
+                        new WFAEntity.API.MyDBContext())
+            {
+                if (this.add_edit == false)
+                {
+                    WFAEntity.API.Other_services objectServices = WFAEntity.API.DatabaseRequest.GetServicesById(objectMyDBContext, this.id);
+                    textBlockAddEditName.Text = objectServices.Name;
+                    textBlockAddEditThe_cost.Text = objectServices.The_cost;
+
+                    ButtonAddEditServices.Content = "Изменить";
+                }
+            }
+        }
+        private bool IsDataCorrect()
+        {
+            return (textBlockAddEditName.Text != string.Empty) ||
+                (textBlockAddEditThe_cost.Text != string.Empty);
         }
         private void ButtonAddEditServices_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsEdit)
+            if (this.IsDataCorrect() == true)
             {
-                if (textBlockAddEditName.Text != string.Empty)
+                using (WFAEntity.API.MyDBContext objectMyDBContext =
+                        new WFAEntity.API.MyDBContext())
                 {
                     WFAEntity.API.Other_services objectServices = new WFAEntity.API.Other_services(
-                          textBlockAddEditName.Text,
-                          textBlockAddEditThe_cost.Text,
-                          (WFAEntity.API.Employees)ComboBoxAddEditName.SelectedItem
-                      );
-
-                    try
+                    textBlockAddEditName.Text,
+                    textBlockAddEditThe_cost.Text,
+                     (WFAEntity.API.Employees)ComboBoxAddEditName.SelectedItem
+                        );
+                    if (this.add_edit == true)
                     {
-                        using (WFAEntity.API.MyDBContext objectMyDBContext =
-                            new WFAEntity.API.MyDBContext())
-                        {
-                            objectMyDBContext.Other_services.Add(objectServices);
-                            objectMyDBContext.SaveChanges();
-                        }
-                        MessageBox.Show("Услуга добавлена");
-                        this.DialogResult = true;
+                        objectMyDBContext.Other_services.Add(objectServices);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
+                        objectServices.ID_other_services = WFAEntity.API.DatabaseRequest.GetServicesById(objectMyDBContext, this.id).ID_other_services;
+                        WFAEntity.API.Other_services objectStudentFromDataBase = new WFAEntity.API.Other_services();
+                        objectStudentFromDataBase = WFAEntity.API.DatabaseRequest.GetServicesById(objectMyDBContext, this.id);
+                        objectMyDBContext.Entry(objectStudentFromDataBase).CurrentValues.SetValues(objectServices);
+                        objectMyDBContext.SaveChanges();
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
+                    objectMyDBContext.SaveChanges();
+                    this.DialogResult = true;
                 }
             }
 

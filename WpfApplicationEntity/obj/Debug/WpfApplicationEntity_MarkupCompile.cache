@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\
+C:\Users\Nioken\Source\Repos\Kursovoy\Курсовая_Савин_КП\WpfApplicationEntity\obj\Debug\
 WpfApplicationEntity
 none
 false
 DEBUG;TRACE
-Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\App.xaml
-8327343890
+C:\Users\Nioken\Source\Repos\Kursovoy\Курсовая_Савин_КП\WpfApplicationEntity\App.xaml
+101851912829
 
-20-2045323553
-15-53823526
-Forms\ClientWindow.xaml;Forms\EmployeesWindow.xaml;Forms\Login.xaml;Forms\ServicesWindow.xaml;Forms\SheduleWindow.xaml;Forms\SkatesWindow.xaml;Forms\TicketWindow.xaml;Forms\MainWindow.xaml;
+23-1251546673
+16233196032
+Forms\CashierWindow.xaml;Forms\ClientWindow.xaml;Forms\EmployeesWindow.xaml;Forms\EmployeeWindow.xaml;Forms\Login.xaml;Forms\ServicesWindow.xaml;Forms\SheduleWindow.xaml;Forms\SkatesWindow.xaml;Forms\TicketWindow.xaml;Forms\Client.xaml;
 
-False
+True
 

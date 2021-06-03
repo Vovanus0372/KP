@@ -31,3 +31,75 @@ Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApp
 Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.pdb
 Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\Login.baml
 Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\Login.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.exe.config
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.exe
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.exe
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.pdb
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\EntityFramework.dll
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\EntityFramework.SqlServer.dll
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\EntityFramework.xml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\bin\Debug\EntityFramework.SqlServer.xml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.csprojResolveAssemblyReference.cache
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\Login.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\MainWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\ClientWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\EmployeesWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\Login.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\ServicesWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\SheduleWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\SkatesWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\TicketWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\MainWindow.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\App.g.cs
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity_MarkupCompile.cache
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity_MarkupCompile.lref
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\ClientWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\EmployeesWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\ServicesWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\SheduleWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\SkatesWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\TicketWindow.baml
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.g.resources
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.Properties.Resources.resources
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.csproj.GenerateResource.Cache
+Z:\Курсачкп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.pdb
+Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\CashierWindow.baml
+Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\EmployeeWindow.baml
+Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\CashierWindow.g.cs
+Z:\Курсач кп2\WpfApplicationEntity\WpfApplicationEntity\obj\Debug\Forms\EmployeeWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.exe.config
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.exe
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.pdb
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.exe
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\WpfApplicationEntity.pdb
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\EntityFramework.dll
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\EntityFramework.SqlServer.dll
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\EntityFramework.xml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\bin\Debug\EntityFramework.SqlServer.xml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.csprojResolveAssemblyReference.cache
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\CashierWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\EmployeeWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\Login.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\MainWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\CashierWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\ClientWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\EmployeesWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\EmployeeWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\Login.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\ServicesWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\SheduleWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\SkatesWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\TicketWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\MainWindow.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\App.g.cs
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity_MarkupCompile.cache
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity_MarkupCompile.lref
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\ClientWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\EmployeesWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\ServicesWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\SheduleWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\SkatesWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\Forms\TicketWindow.baml
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.g.resources
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.Properties.Resources.resources
+Z:\Курсач кп2\Курсовая Савин КП\WpfApplicationEntity\obj\Debug\WpfApplicationEntity.csproj.GenerateResource.Cache

@@ -1,0 +1,9 @@
+Admin
+Login:    Password:
+KING       1111
+
+Cashier
+ABR       1234
+
+Client:
+Maks      1234

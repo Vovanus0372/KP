@@ -10,95 +10,118 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data.SqlClient;
-using WFAEntity.API;
-using WpfApplicationEntity.Forms;
-using System.Data.Entity.Migrations;
 
 namespace WpfApplicationEntity.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для GroupWindow.xaml
+    /// Логика взаимодействия для GroupAddEditWindow.xaml
     /// </summary>
-    partial class ClientWindow : Window
+    public partial class ClientWindow : Window
     {
-        MainWindow AF;
-       
-        bool IsEdit = false;
-        Client EditClient;
-        public ClientWindow(MainWindow AF)
+        private bool add_edit;
+        private int id;
+        public ClientWindow()
         {
-            this.AF = AF;
             InitializeComponent();
-            
         }
-        public ClientWindow(MainWindow AF, Client EditClient)
+        public ClientWindow(bool add_edit, int id = 0)
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditClient = EditClient;
             InitializeComponent();
-       }
-        private void ButtonAddEditGroup_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsEdit)
+            this.add_edit = add_edit;
+            this.id = id;
+            if (this.add_edit == false)
             {
-                if (textBlockAddEditSurname.Text != string.Empty)
-                {
-                    using (WFAEntity.API.MyDBContext objectMyDBContext =
+                using (WFAEntity.API.MyDBContext objectMyDBContext =
                             new WFAEntity.API.MyDBContext())
+                {
+                    WFAEntity.API.Client objectClient = WFAEntity.API.DatabaseRequest.GetClientById(objectMyDBContext, this.id);
+                    objectClient.Surname = objectClient.Surname;
+                    objectClient.Name = objectClient.Name;
+                    objectClient.Patronymic = objectClient.Patronymic;
+                    objectClient.Address = objectClient.Address;
+                    objectClient.Number = objectClient.Number;
+
+                }
+                ButtonAddEditClient.Content = "Изменить";
+            }
+        }
+        private bool IsDataCorrcet()
+        {
+            if (textBlockAddEditSurname.Text != string.Empty || textBlockAddEditName.Text != string.Empty || textBlockAddEditPatronymic.Text != string.Empty || textBlockAddEditAdress.Text != string.Empty || textBlockAddEditTelephone.Text != string.Empty) ;
+            return true;
+            return false;
+
+        }
+        private void ButtonAddEditClient_Click(object sender, RoutedEventArgs e)
+        {
+            WFAEntity.API.Client objectClient = new WFAEntity.API.Client();
+            if (this.add_edit == true)
+            {
+                objectClient.Surname = textBlockAddEditSurname.Text;
+                objectClient.Name = textBlockAddEditName.Text;
+                objectClient.Patronymic = textBlockAddEditPatronymic.Text;
+                objectClient.Address = textBlockAddEditAdress.Text;
+                objectClient.Number = textBlockAddEditTelephone.Text;
+                try
+                {
+                    if (this.IsDataCorrcet() == true)
                     {
-                        WFAEntity.API.Client objectClient = new WFAEntity.API.Client();
-                        objectClient.Surname = textBlockAddEditSurname.Text;
-                        objectClient.Name = textBlockAddEditName.Text;
-                        objectClient.Patronymic = textBlockAddEditPatronymic.Text;
-                        objectClient.Address = textBlockAddEditAdress.Text;
-                        objectClient.Number = textBlockAddEditTelephone.Text;
-                        try
+                        using (WFAEntity.API.MyDBContext objectMyDBContext =
+                                new WFAEntity.API.MyDBContext())
                         {
                             objectMyDBContext.Client.Add(objectClient);
                             objectMyDBContext.SaveChanges();
-                            MessageBox.Show("Клиент добавлен");
-                            this.DialogResult = true;
-                            AF.ShowAll();
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                        MessageBox.Show("Клиент добавлена");
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ввод данных", "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
+                    MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                using (WFAEntity.API.MyDBContext objectMyDBContext =
-                        new WFAEntity.API.MyDBContext())
+                try
                 {
-                    WFAEntity.API.Client objectClient = new WFAEntity.API.Client();
-                    EditClient.Surname = textBlockAddEditSurname.Text;
-                    EditClient.Name = textBlockAddEditName.Text;
-                    EditClient.Patronymic = textBlockAddEditPatronymic.Text;
-                    EditClient.Address = textBlockAddEditAdress.Text;
-                    EditClient.Number = textBlockAddEditTelephone.Text;
-                    try
+                    if (this.IsDataCorrcet())
                     {
-                        objectMyDBContext.Client.AddOrUpdate(EditClient);
-                        objectMyDBContext.SaveChanges();
-                        MessageBox.Show("Клиент Редактирован");
+                        using (WFAEntity.API.MyDBContext objectMyDBContext =
+                            new WFAEntity.API.MyDBContext())
+                        {
+                            WFAEntity.API.Client client = new WFAEntity.API.Client();
+                            client = WFAEntity.API.DatabaseRequest.GetClientById(objectMyDBContext, this.id);
+                            client.Surname = textBlockAddEditSurname.Text;
+                            client.Name = textBlockAddEditName.Text;
+                            client.Patronymic = textBlockAddEditPatronymic.Text;
+                            client.Address = textBlockAddEditAdress.Text;
+                            client.Number = textBlockAddEditTelephone.Text;
+                            objectMyDBContext.Entry(client).State = System.Data.Entity.EntityState.Modified;
+                            objectMyDBContext.SaveChanges();
+                        }
+                        MessageBox.Show("Клиент изменена");
                         this.DialogResult = true;
-                        AF.ShowAll();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Ввод данных", "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+        }
+
+        private void ButtonAddEditGroup_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

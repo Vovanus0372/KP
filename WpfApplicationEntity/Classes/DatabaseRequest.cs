@@ -13,7 +13,7 @@ namespace WFAEntity.API
             public string Count { get; set; }
             public string Type { get; set; }
             public string Employees { get; set; }
-            public NewSkates_hire(int ID_skates_hire, string Time, string Size, string Count, string Type, string Employees)
+            public NewSkates_hire(int ID_skates_hire, string Size, string Time, string Count, string Type, string Employees)
             {
                 this.ID_skates_hire = ID_skates_hire;
                 this.Size = Size;
@@ -94,18 +94,36 @@ namespace WFAEntity.API
         }
         
         #region Клиенты
+        public static Client GetClientById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempClient in objectMyDBContext.Client.ToList<Client>()
+                    where tempClient.ID_Client == ID
+                    select tempClient).First();
+        }
         public static IEnumerable<Client> GetClients(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.Client.ToList();
         }
         #endregion
         #region Сотрудники
+        public static Employees GetEmployeesById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempEmployees in objectMyDBContext.Employees.ToList<Employees>()
+                    where tempEmployees.ID_employees == ID
+                    select tempEmployees).First();
+        }
         public static IEnumerable<Employees> GetEmployees(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.Employees.ToList();
         }
         #endregion
-        #region Услуги}
+        #region Услуги
+        public static Other_services GetServicesById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempServices in objectMyDBContext.Other_services.ToList<Other_services>()
+                    where tempServices.ID_other_services == ID
+                    select tempServices).First();
+        }
         public static IEnumerable<Other_services> GetServices(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.Other_services.ToList();
@@ -146,6 +164,12 @@ namespace WFAEntity.API
         }
         #endregion
         #region График МК
+        public static MK_schedule GetSheduleById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempShedule in objectMyDBContext.MK_schedule.ToList<MK_schedule>()
+                    where tempShedule.ID_MK_schedule == ID
+                    select tempShedule).First();
+        }
         public static IEnumerable<MK_schedule> GetShedule(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.MK_schedule.ToList();
@@ -165,6 +189,12 @@ namespace WFAEntity.API
         }
         #endregion
         #region Билеты
+        public static Ticket GetTicketById(MyDBContext objectMyDBContext, int ID)
+        {
+            return (from tempTicket in objectMyDBContext.Ticket.ToList<Ticket>()
+                    where tempTicket.ID_Ticket == ID
+                    select tempTicket).First();
+        }
         public static IEnumerable<Ticket> GetTicket(MyDBContext objectMyDBContext)
         {
             return objectMyDBContext.Ticket.ToList();
@@ -178,9 +208,9 @@ namespace WFAEntity.API
                     from tmpShedule in objectMyDBContext.MK_schedule.ToList<MK_schedule>()
                     from tmpServices in objectMyDBContext.Other_services.ToList<Other_services>()
                     from tmpSkates in objectMyDBContext.Skates_hire.ToList<Skates_hire>()
-                    where tmpSkates.ID_skates_hire == tmpSkates.ID_skates_hire
-                    where tmpServices.ID_other_services == tmpServices.ID_other_services
-                    where tmpShedule.ID_MK_schedule == tmpShedule.ID_MK_schedule
+                    where tmpTicket.ID_skates_hire == tmpSkates.ID_skates_hire
+                    where tmpTicket.ID_other_services == tmpServices.ID_other_services
+                    where tmpTicket.ID_MK_schedule == tmpShedule.ID_MK_schedule
                     where tmpTicket.ID_Client == tmpClient.ID_Client
                     select (
                     new NewTicket(tmpTicket.ID_Ticket, tmpTicket.Cost, tmpTicket.Amount, tmpTicket.Status, tmpClient.Name, tmpShedule.Date, tmpServices.Name, tmpSkates.Size)

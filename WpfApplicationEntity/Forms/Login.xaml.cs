@@ -20,7 +20,7 @@ namespace WpfApplicationEntity.Forms
     /// <summary>
     /// Логика взаимодействия для Login.xaml
     /// </summary>
-    public partial class Login : Window
+     partial class Login : Window
     {
         public Login()
         {
@@ -38,19 +38,19 @@ namespace WpfApplicationEntity.Forms
                     ).ToList();
                 if (tmp.Count > 0)
                 {
-                    if (tmp[0].Login == "Администратор")
+                    if (tmp[0].Position == "Администратор")
                     {
-                        Forms.SheduleWindow g = new Forms.SheduleWindow(new MainWindow());
+                        EmployeeWindow g = new EmployeeWindow();
                         if (g.ShowDialog() == true)        
                             this.ShowAll();
                     }
-                    else if (tmp[0].Login == "Кассир")
+                    else if (tmp[0].Position == "Кассир")
                     {
-                        SkatesWindow g = new SkatesWindow(new MainWindow());
+                        CashierWindow g = new CashierWindow();
                         if (g.ShowDialog() == true)
                             this.ShowAll();
                     }
-                    else if (tmp[0].Login == "Посетитель")
+                    else if (tmp[0].Position == "Посетитель")
                     {
                         MainWindow g = new MainWindow();
                         if (g.ShowDialog() == true)
@@ -59,7 +59,7 @@ namespace WpfApplicationEntity.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Ошибочка");
+                    MessageBox.Show("Логин или пароль неправильны! Попробуйте еще раз");
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace WpfApplicationEntity.Forms
             {
                 using (WFAEntity.API.MyDBContext objectMyDBContext = new WFAEntity.API.MyDBContext())
                 {
-                    //var list = WpfApplicationEntity.API.DatabaseRequest.GetMatType(objectMyDBContext);
+                   // var list = WFAEntity.API.DatabaseRequest.GetMatType(objectMyDBContext);
 
                 }
             }
@@ -77,6 +77,40 @@ namespace WpfApplicationEntity.Forms
             {
                 MessageBox.Show(ex.Message, "Тип материалов", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (WFAEntity.API.MyDBContext objectMyDBContext = new WFAEntity.API.MyDBContext())
+                {
+                    try
+                    {
+                        if (objectMyDBContext.Database.Exists() == false)
+                        {
+                            WFAEntity.API.DatabaseRequest.Fill();
+                            objectMyDBContext.Database.Create();
+                            WFAEntity.API.Employees objectUser = new WFAEntity.API.Employees();
+                            objectUser.Name = "user name";
+                            objectMyDBContext.Employees.Add(objectUser);
+                            objectMyDBContext.SaveChanges();
+                        }
+                        WFAEntity.API.DatabaseRequest.Fill();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("База успешно создана", "Создание базы данных");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Были внесены изменени в БД, удалите БД и повторите попытку", "Подключение к базе данных");
+            }
+
+            this.ShowAll();
         }
     }
 }

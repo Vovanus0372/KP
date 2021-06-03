@@ -22,38 +22,46 @@ namespace WpfApplicationEntity.Forms
     /// </summary>
     partial class SkatesWindow : Window
     {
-        MainWindow AF;
 
-        bool IsEdit = false;
-        Skates_hire EditSkates;
-        private bool p1;
-        private int p2;
-        public SkatesWindow(MainWindow AF)
-        {
-            this.AF = AF;
-            InitializeComponent();
+        private readonly bool add_edit;
+        private readonly int id;
 
-        }
-        public SkatesWindow(MainWindow AF, Skates_hire EditSkates)
+        public SkatesWindow()
         {
-            IsEdit = true;
-            this.AF = AF;
-            this.EditSkates = EditSkates;
             InitializeComponent();
         }
-
-        public SkatesWindow(bool p1, int p2)
+        public SkatesWindow(bool add_edit, int id = 0)
         {
             // TODO: Complete member initialization
-            this.p1 = p1;
-            this.p2 = p2;
+            InitializeComponent();
+            this.add_edit = add_edit;
+            this.id = id;
+
+            using (WFAEntity.API.MyDBContext objectMyDBContext =
+                        new WFAEntity.API.MyDBContext())
+            {
+                if (this.add_edit == false)
+                {
+                    WFAEntity.API.Skates_hire objectStudent = WFAEntity.API.DatabaseRequest.GetSkatesById(objectMyDBContext, this.id);
+                    textBlockAddEditSize.Text = objectStudent.Size;
+                    textBlockAddEditTime.Text = objectStudent.Time;
+                    textBlockAddEditCount.Text = objectStudent.Count;
+                    textBlockAddEditType.Text = objectStudent.Type;
+
+                    ButtonAddEditSkates.Content = "Изменить";
+                }
+            }
+        }
+        private bool IsDataCorrect()
+        {
+            return (textBlockAddEditSize.Text != string.Empty) ||
+                (textBlockAddEditTime.Text != string.Empty) ||
+                (textBlockAddEditCount.Text != string.Empty);
         }
         private void ButtonAddEditSkates_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsEdit)
+            if (this.IsDataCorrect() == true)
             {
-                if (textBlockAddEditSize.Text != string.Empty)
-                {
                     using (WFAEntity.API.MyDBContext objectMyDBContext =
                             new WFAEntity.API.MyDBContext())
                     {
@@ -64,65 +72,27 @@ namespace WpfApplicationEntity.Forms
                         textBlockAddEditType.Text,
                          (WFAEntity.API.Employees)ComboBoxAddEditEmployess.SelectedItem
                             );
-                        try
+                        if (this.add_edit == true)
                         {
                             objectMyDBContext.Skates_hire.Add(objectSkates);
-                            objectMyDBContext.SaveChanges();
-                            MessageBox.Show("Коньки добавлены");
-                            this.DialogResult = true;
-                            AF.ShowAll();
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
+                            objectSkates.ID_skates_hire = WFAEntity.API.DatabaseRequest.GetSkatesById(objectMyDBContext, this.id).ID_skates_hire;
+                            WFAEntity.API.Skates_hire objectStudentFromDataBase = new WFAEntity.API.Skates_hire();
+                            objectStudentFromDataBase = WFAEntity.API.DatabaseRequest.GetSkatesById(objectMyDBContext, this.id);
+                            objectMyDBContext.Entry(objectStudentFromDataBase).CurrentValues.SetValues(objectSkates);
+                            objectMyDBContext.SaveChanges();
                         }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Заполните все поля!", "Ошибка!");
-                    this.DialogResult = false;
-                }
-            }
-            else
-            {
-                using (WFAEntity.API.MyDBContext objectMyDBContext =
-                        new WFAEntity.API.MyDBContext())
-                {
-                    WFAEntity.API.Skates_hire objectSkates = new WFAEntity.API.Skates_hire(
-                    textBlockAddEditSize.Text,
-                    textBlockAddEditTime.Text,
-                    textBlockAddEditType.Text,
-                    textBlockAddEditCount.Text,
-                    (WFAEntity.API.Employees)ComboBoxAddEditEmployess.SelectedItem
-                );
-                    try
-                    {
-                        objectMyDBContext.Skates_hire.AddOrUpdate(EditSkates);
                         objectMyDBContext.SaveChanges();
-                        MessageBox.Show("Клиент Редактирован");
                         this.DialogResult = true;
-                        AF.ShowAll();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "ОШИБКА", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-            }
-
-
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            /*var tmp = MyDBContext.DBContext.Employees.ToList();
-            List<string> Strings = new List<string>();
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                Strings.Add(tmp[i].Name);
-            }
-                ComboBoxAddEditEmployess.ItemsSource = Strings;*/
             using (WFAEntity.API.MyDBContext objectMyDBContext =
                         new WFAEntity.API.MyDBContext())
             {
